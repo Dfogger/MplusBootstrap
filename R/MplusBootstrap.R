@@ -19,18 +19,19 @@
 #' @param output the name of the output image file (.png)
 #' @param rep the number of repetitions (default: 20000)
 #' @param conf the critical value used to generate confidence interval
+#' @param multi_level a binary variable indicating whether the specified is
+#' multi-level (must be specified by the user)
 #'
 #' @return An image containing the distribution of the indirect effect and
 #' confidence interval
 #' @export
 #'
 #' @examples
-MplusBootstrap <- function(Model, type, first_path, second_path,
+MplusBootstrap <- function(Model, type, first_path, second_path=NULL, multi_level,
                            iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
                            first_stage_mod=NULL, level_one_mod=NULL,
                            output='Untitled', rep=20000, conf=95) {
   # model selection
-  ## Single Level
   if (type == 'med') {
     if ((first_path != 'fixed') & (second_path != 'fixed')) {
       complex_version(Model, first_path=first_path, second_path=second_path,
@@ -42,17 +43,18 @@ MplusBootstrap <- function(Model, type, first_path, second_path,
     }
   } else if (type == 'mod-med') {
     if ((first_path != 'fixed') & (second_path != 'fixed')) {
+      complex_modmed(Model, first_stage_mod=first_stage_mod,
+                     first_path=first_path, second_path=second_path, w=w,
+                     output=output, rep=rep, conf=conf)
+    } else {
       simple_modmed(Model, iv=iv, m=m, w=w, xw=xw, dv=dv,
                     first_stage_mod=first_stage_mod, level_one_mod=level_one_mod,
                     first_path=first_path, second_path=second_path,
                     output=output, rep=rep, conf=conf)
-    } else {
-      complex_modmed(Model, first_stage_mod=first_stage_mod,
-                     first_path=first_path, second_path=second_path, w=w,
-                     output=output, rep=rep, conf=conf)
     }
   } else if (type == 'med-mod') {
     med_mod(Model, iv=iv, m=m, w=w, xw=xw, dv=dv,
-            first_path=first_path, level_one_mod=level_one_mod)
+            first_path=first_path, level_one_mod=level_one_mod,
+            output=output, rep=rep, conf=conf)
   }
 }

@@ -14,9 +14,10 @@
 #' @examples
 #' model <- load_model('inst/examples/example_single')
 #'
-load_model <- function(filename) {
+load_model <- function(file_name) {
   if (!file.exists(paste0(file_name, ".out"))) {
     runModels(target = paste0(file_name, ".inp"))
   }
-  return(readModels(target = paste0(file_name, ".out")))
+  model <- readModels(target = paste0(file_name, ".out"))
+  return(model)
 }

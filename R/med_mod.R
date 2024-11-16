@@ -15,13 +15,17 @@
 #' @param w the name of the moderator
 #' @param xw the name of the interaction term
 #' @param first_path the name of the first random path (should not be 'fixed')
+#' @param output the name of the output image file (.png)
+#' @param rep the number of repetitions (default: 20000)
+#' @param conf the critical value used to generate confidence interval
 #'
 #' @return An image containing the distribution of the indirect effect and
 #' confidence interval
 #'
 #' @examples
 med_mod <- function(Model, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
-                    first_path=NULL, level_one_mod=TRUE) {
+                    first_path=NULL, level_one_mod=TRUE,
+                    output='Untitled', rep=20000, conf=95) {
   w = toupper(w)
   m = toupper(m)
   # First Level Moderator

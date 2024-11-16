@@ -46,7 +46,7 @@ complex_version <- function(Model, first_path=NULL, second_path=NULL,
 
   var_a_loc <- Model$tech1$parameterSpecification$BETWEEN$alpha[1, s_mx]
   var_b_loc <- Model$tech1$parameterSpecification$BETWEEN$alpha[1, s_ym]
-  var_tau_loc <- if (is.na(Model$tech1$parameterSpecification$BETWEEN$psi[s_ym, s_mx])) {
+  var_tau_loc <- if (!is.na(Model$tech1$parameterSpecification$BETWEEN$psi[s_ym, s_mx])) {
     Model$tech1$parameterSpecification$BETWEEN$psi[s_ym, s_mx]
   } else {
     Model$tech1$parameterSpecification$BETWEEN$psi[s_mx, s_ym]

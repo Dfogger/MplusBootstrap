@@ -1,30 +1,4 @@
-# MplusBootstrap
-An R package to automate bootstrapping for various mediation and moderated mediation analysis scenarios.
-
-## Model Dependencies
-MplusAutomation, dplyr, tidyr, MASS
-
-## Model Functions
-This package mainly provides two functions: 
-
-1. **load_model(file_name)**
-This function loads model results from Mplus output file. If these exists no output file, this function will try to run the input file and reads the output file then. 
-
-User must specify a filename or a path where the Mplus input or output file locates. 
-
-2. **MplusBootstrap(Model, type, first_path, second_path=NULL, multi_level, iv=NULL, **
-                 ** m=NULL, w=NULL, xw=NULL, dv=NULL, first_stage_mod=NULL, level_one_mod=NULL, **
-                 ** output='Untitled', rep=20000, conf=95) **
-This function provides a set of Monte Carlo simulations to bootstrap the mediation or moderated mediation or mediated moderation effect from the Mplus resluts. 
-
-User must specify the model, model type ('med', 'mod-med' or 'med-mod'), first/second path ('fixed' or 'path name), multi_level (TRUE or FALSE), and nessacary variable names that will be used. The variable names are case-insensitive. 
-Some examples are given below. 
-
-Please refer to [description](man/MplusBootstrap.Rd) for more details. 
-
-## Examples
-The example code and output file can be found in [tests/testthat](tests/testthat). 
-```R
+test_that("multiplication works", {
   # Single Level Mediation
   model <- load_model(file_name = testthat::test_path('examples/example_single'))
   MplusBootstrap(Model=model, type="med", first_path="fixed", second_path="fixed",
@@ -114,4 +88,4 @@ The example code and output file can be found in [tests/testthat](tests/testthat
                  multi_level=TRUE, iv=NULL, m="norm", w="gclim", xw=NULL, dv=NULL,
                  first_stage_mod=NULL, level_one_mod=FALSE,
                  output='Q2_gclim', rep=20000, conf=95)
-
+})
