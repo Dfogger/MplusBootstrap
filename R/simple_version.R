@@ -56,14 +56,14 @@ simple_version <- function(Model, iv=NULL, m=NULL, dv=NULL, multi_level=FALSE,
 
     # Single-level model
     if (!multi_level) {
-      var_a_loc <- Model$tech1$parameterSpecification$beta[m, iv]
-      var_b_loc <- Model$tech1$parameterSpecification$beta[dv, m]
+      var_a_loc <- Model$tech1$parameterSpecification$X$beta[m, iv]
+      var_b_loc <- Model$tech1$parameterSpecification$X$beta[dv, m]
     } else {
     # 1-1-1 mediation with two fixed paths (multi-level)
       var_a_loc <- Model$tech1$parameterSpecification$WITHIN$beta[m, iv]
       var_b_loc <- Model$tech1$parameterSpecification$WITHIN$beta[dv, m]
     }
-  } else if ((first_path=='fixed') | (second_path=='fixed')) {
+  } else if ((first_path!='fixed') | (second_path!='fixed')) {
     # 1-1-1 mediation with one fixed path and one random path
     if (first_path!='fixed') {
       first_path = toupper(first_path)

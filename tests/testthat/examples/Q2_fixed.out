@@ -1,0 +1,818 @@
+Mplus VERSION 8.11 (Mac)
+MUTHEN & MUTHEN
+11/02/2024   9:40 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:	Homework6 - Q2-fixed-latent
+
+  DATA:	FILE = Homework6.csv;
+
+  VARIABLE:	
+      NAMES = group lmx tmx eff jobperf age tenure
+      		lmx_mean tmx_mean ef_mean jp_mean age_mean tnr_mean teamsize
+      		c_lmx c_tmx c_ef c_jp c_age c_tenure
+      		clt_1 clt_2;
+      		
+      USEVARIABLE = tmx lmx eff jobperf age tenure;
+      WITHIN = age tenure;
+      BETWEEN = ;
+      CLUSTER = group;
+
+  DEFINE:
+      CENTER age tenure (groupmean);
+
+  ANALYSIS:	
+       TYPE = TWOLEVEL;
+
+  MODEL:
+  	%WITHIN%	
+  	eff jobperf ON tmx lmx age tenure;
+  	jobperf ON eff;
+  	
+  	%BETWEEN%
+  	tmx lmx WITH eff jobperf;
+  	eff WITH jobperf;
+  	
+  	
+  OUTPUT:
+    	tech1 tech3;!Both are needed for CI bootstrap
+
+
+
+*** WARNING in MODEL command
+  In the MODEL command, the following variable is a y-variable on the BETWEEN
+  level and an x-variable on the WITHIN level.  This variable will be treated
+  as a y-variable on both levels:  TMX
+*** WARNING in MODEL command
+  In the MODEL command, the following variable is a y-variable on the BETWEEN
+  level and an x-variable on the WITHIN level.  This variable will be treated
+  as a y-variable on both levels:  LMX
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+Homework6 - Q2-fixed-latent
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        2551
+
+Number of dependent variables                                    4
+Number of independent variables                                  2
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   TMX         LMX         EFF         JOBPERF
+
+Observed independent variables
+   AGE         TENURE
+
+Variables with special functions
+
+  Cluster variable      GROUP
+
+  Within variables
+   AGE         TENURE
+
+  Centering (GROUPMEAN)
+   AGE         TENURE
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                   100
+Convergence criterion                                    0.100D-05
+Maximum number of EM iterations                                500
+Convergence criteria for the EM algorithm
+  Loglikelihood change                                   0.100D-02
+  Relative loglikelihood change                          0.100D-05
+  Derivative                                             0.100D-03
+Minimum variance                                         0.100D-03
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+
+Input data file(s)
+  Homework6.csv
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of clusters                        100
+
+     Average cluster size       25.510
+
+     Estimated Intraclass Correlations for the Y Variables
+
+                Intraclass              Intraclass              Intraclass
+     Variable  Correlation   Variable  Correlation   Variable  Correlation
+
+     TMX          0.001      LMX          0.001      EFF          0.185
+     JOBPERF      0.136
+
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     TMX                   3.019      -0.027      -0.535    0.04%       2.190      2.748      3.017
+            2551.000       0.986       0.010       6.534    0.04%       3.259      3.868
+     LMX                   2.994       0.035      -0.883    0.04%       2.156      2.733      2.974
+            2551.000       1.011       0.089       6.695    0.04%       3.229      3.870
+     EFF                   0.235      -0.261     -16.119    0.04%      -1.226     -0.256      0.219
+            2551.000       3.645       3.149       7.753    0.04%       0.656      1.729
+     JOBPERF               0.271      -0.216     -17.443    0.04%      -1.398     -0.243      0.266
+            2551.000       4.534       2.291       8.002    0.04%       0.759      1.918
+     AGE                   0.000      -0.021     -16.643    0.04%      -8.038     -2.600     -0.042
+            2551.000      62.251      -1.116      15.704    0.04%       2.818      8.036
+     TENURE                0.000       0.003      -5.826    0.04%      -2.955     -1.000      0.000
+            2551.000       7.939      -1.161       5.810    0.04%       0.964      2.846
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       26
+
+Loglikelihood
+
+          H0 Value                      -15868.864
+          H0 Scaling Correction Factor      1.7425
+            for MLR
+          H1 Value                      -15866.452
+          H1 Scaling Correction Factor      1.4324
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   31789.727
+          Bayesian (BIC)                 31941.678
+          Sample-Size Adjusted BIC       31859.069
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                             54.261*
+          Degrees of Freedom                     6
+          P-Value                           0.0000
+          Scaling Correction Factor         0.0889
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.056
+
+CFI/TLI
+
+          CFI                                0.985
+          TLI                                0.951
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           3284.798
+          Degrees of Freedom                    20
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value for Within                   0.010
+          Value for Between                  0.233
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ EFF        ON
+    TMX                0.137      0.096      1.424      0.154
+    LMX                0.093      0.085      1.090      0.276
+    AGE                0.005      0.004      1.086      0.278
+    TENURE             0.011      0.011      1.022      0.307
+
+ JOBPERF    ON
+    TMX               -0.010      0.021     -0.465      0.642
+    LMX                0.013      0.022      0.585      0.559
+    AGE                0.003      0.002      1.467      0.142
+    TENURE             0.015      0.007      2.292      0.022
+    EFF                0.999      0.010     97.003      0.000
+
+ Variances
+    TMX                0.985      0.027     36.699      0.000
+    LMX                1.010      0.029     35.149      0.000
+
+ Residual Variances
+    EFF                2.942      0.247     11.904      0.000
+    JOBPERF            0.939      0.027     35.223      0.000
+
+Between Level
+
+ TMX      WITH
+    EFF               -0.013      0.021     -0.595      0.552
+    JOBPERF           -0.013      0.021     -0.612      0.541
+
+ LMX      WITH
+    EFF               -0.014      0.022     -0.638      0.523
+    JOBPERF           -0.013      0.020     -0.658      0.511
+
+ EFF      WITH
+    JOBPERF            0.645      0.116      5.548      0.000
+
+ Means
+    TMX                3.019      0.018    169.572      0.000
+    LMX                2.994      0.019    161.681      0.000
+    EFF                0.237      0.089      2.673      0.008
+    JOBPERF            0.273      0.087      3.135      0.002
+
+ Variances
+    TMX                0.001      0.010      0.109      0.913
+    LMX                0.001      0.007      0.159      0.874
+    EFF                0.673      0.119      5.649      0.000
+    JOBPERF            0.618      0.115      5.359      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.304E-04
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN
+
+
+           NU
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           NU
+              TENURE
+              ________
+                    0
+
+
+           LAMBDA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX                0             0             0             0             0
+ LMX                0             0             0             0             0
+ EFF                0             0             0             0             0
+ JOBPERF            0             0             0             0             0
+ AGE                0             0             0             0             0
+ TENURE             0             0             0             0             0
+
+
+           LAMBDA
+              TENURE
+              ________
+ TMX                0
+ LMX                0
+ EFF                0
+ JOBPERF            0
+ AGE                0
+ TENURE             0
+
+
+           THETA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX                0
+ LMX                0             0
+ EFF                0             0             0
+ JOBPERF            0             0             0             0
+ AGE                0             0             0             0             0
+ TENURE             0             0             0             0             0
+
+
+           THETA
+              TENURE
+              ________
+ TENURE             0
+
+
+           ALPHA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              TENURE
+              ________
+                    0
+
+
+           BETA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX                0             0             0             0             0
+ LMX                0             0             0             0             0
+ EFF                1             2             0             0             3
+ JOBPERF            5             6             7             0             8
+ AGE                0             0             0             0             0
+ TENURE             0             0             0             0             0
+
+
+           BETA
+              TENURE
+              ________
+ TMX                0
+ LMX                0
+ EFF                4
+ JOBPERF            9
+ AGE                0
+ TENURE             0
+
+
+           PSI
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX               10
+ LMX                0            11
+ EFF                0             0            12
+ JOBPERF            0             0             0            13
+ AGE                0             0             0             0             0
+ TENURE             0             0             0             0             0
+
+
+           PSI
+              TENURE
+              ________
+ TENURE             0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN
+
+
+           NU
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX                0             0             0             0
+ LMX                0             0             0             0
+ EFF                0             0             0             0
+ JOBPERF            0             0             0             0
+
+
+           THETA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX                0
+ LMX                0             0
+ EFF                0             0             0
+ JOBPERF            0             0             0             0
+
+
+           ALPHA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+                   14            15            16            17
+
+
+           BETA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX                0             0             0             0
+ LMX                0             0             0             0
+ EFF                0             0             0             0
+ JOBPERF            0             0             0             0
+
+
+           PSI
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX               18
+ LMX                0            19
+ EFF               20            21            22
+ JOBPERF           23            24            25            26
+
+
+     STARTING VALUES FOR WITHIN
+
+
+           NU
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              TENURE
+              ________
+                0.000
+
+
+           LAMBDA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX            1.000         0.000         0.000         0.000         0.000
+ LMX            0.000         1.000         0.000         0.000         0.000
+ EFF            0.000         0.000         1.000         0.000         0.000
+ JOBPERF        0.000         0.000         0.000         1.000         0.000
+ AGE            0.000         0.000         0.000         0.000         1.000
+ TENURE         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              TENURE
+              ________
+ TMX            0.000
+ LMX            0.000
+ EFF            0.000
+ JOBPERF        0.000
+ AGE            0.000
+ TENURE         1.000
+
+
+           THETA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX            0.000
+ LMX            0.000         0.000
+ EFF            0.000         0.000         0.000
+ JOBPERF        0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ TENURE         0.000         0.000         0.000         0.000         0.000
+
+
+           THETA
+              TENURE
+              ________
+ TENURE         0.000
+
+
+           ALPHA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              TENURE
+              ________
+                0.000
+
+
+           BETA
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX            0.000         0.000         0.000         0.000         0.000
+ LMX            0.000         0.000         0.000         0.000         0.000
+ EFF            0.000         0.000         0.000         0.000         0.000
+ JOBPERF        0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+ TENURE         0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              TENURE
+              ________
+ TMX            0.000
+ LMX            0.000
+ EFF            0.000
+ JOBPERF        0.000
+ AGE            0.000
+ TENURE         0.000
+
+
+           PSI
+              TMX           LMX           EFF           JOBPERF       AGE
+              ________      ________      ________      ________      ________
+ TMX            0.493
+ LMX            0.000         0.506
+ EFF            0.000         0.000         1.823
+ JOBPERF        0.000         0.000         0.000         2.267
+ AGE            0.000         0.000         0.000         0.000        31.126
+ TENURE         0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              TENURE
+              ________
+ TENURE         3.969
+
+
+     STARTING VALUES FOR BETWEEN
+
+
+           NU
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX            1.000         0.000         0.000         0.000
+ LMX            0.000         1.000         0.000         0.000
+ EFF            0.000         0.000         1.000         0.000
+ JOBPERF        0.000         0.000         0.000         1.000
+
+
+           THETA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX            0.000
+ LMX            0.000         0.000
+ EFF            0.000         0.000         0.000
+ JOBPERF        0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+                3.019         2.994         0.235         0.271
+
+
+           BETA
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX            0.000         0.000         0.000         0.000
+ LMX            0.000         0.000         0.000         0.000
+ EFF            0.000         0.000         0.000         0.000
+ JOBPERF        0.000         0.000         0.000         0.000
+
+
+           PSI
+              TMX           LMX           EFF           JOBPERF
+              ________      ________      ________      ________
+ TMX            0.493
+ LMX            0.000         0.506
+ EFF            0.000         0.000         1.823
+ JOBPERF        0.000         0.000         0.000         2.267
+
+
+TECHNICAL 3 OUTPUT
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                     1             2             3             4             5
+              ________      ________      ________      ________      ________
+        1   0.927886D-02
+        2  -0.725738D-03  0.727844D-02
+        3  -0.704557D-05 -0.171858D-04  0.184915D-04
+        4   0.183952D-03 -0.124791D-03 -0.900860D-05  0.124130D-03
+        5  -0.404384D-03  0.273252D-03  0.880269D-05 -0.374873D-04  0.431610D-03
+        6  -0.160571D-03  0.245266D-03  0.114374D-04 -0.565282D-05  0.750439D-04
+        7   0.206172D-04 -0.783924D-04  0.103905D-06  0.988306D-05 -0.513767D-04
+        8   0.390156D-04 -0.137771D-04 -0.550908D-06  0.505659D-05 -0.888588D-05
+        9  -0.933760D-05 -0.586573D-04  0.207135D-05  0.780217D-05 -0.197730D-04
+       10   0.199364D-03 -0.658334D-04 -0.141531D-05 -0.632467D-04  0.126863D-04
+       11  -0.193149D-03 -0.393587D-03 -0.502527D-06  0.511261D-04  0.561195D-04
+       12   0.200666D-02 -0.320989D-02  0.147080D-03  0.107304D-03  0.164390D-03
+       13  -0.685818D-04  0.465949D-03  0.841151D-05  0.685184D-05 -0.110206D-03
+       14   0.141967D-03  0.188004D-03 -0.110008D-04  0.494653D-04 -0.590057D-04
+       15   0.313351D-03 -0.128258D-03  0.844540D-05  0.231091D-04 -0.429450D-04
+       16  -0.102447D-02 -0.738794D-03  0.292177D-04  0.284811D-04 -0.304181D-03
+       17  -0.816279D-03 -0.755811D-03  0.295578D-04  0.306802D-04 -0.274419D-03
+       18  -0.869086D-04  0.279961D-05 -0.304288D-05  0.107597D-04 -0.121599D-04
+       19   0.431342D-04 -0.358272D-05  0.154156D-06 -0.131756D-05 -0.740088D-06
+       20   0.504488D-04  0.403470D-04  0.227746D-04 -0.107005D-04  0.754490D-04
+       21  -0.120582D-03  0.221884D-03 -0.643084D-05  0.479720D-05  0.651741D-04
+       22   0.532939D-03  0.696861D-03 -0.535002D-04 -0.152921D-03 -0.690146D-04
+       23   0.862176D-05  0.471430D-04  0.205649D-04 -0.670773D-05  0.396078D-04
+       24  -0.102958D-03  0.167727D-03 -0.971528D-05  0.115892D-04  0.559042D-04
+       25   0.735171D-03  0.724592D-03 -0.576942D-04 -0.150516D-03 -0.609444D-04
+       26   0.976135D-03  0.720306D-03 -0.596699D-04 -0.147697D-03 -0.524747D-04
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                     6             7             8             9            10
+              ________      ________      ________      ________      ________
+        6   0.481879D-03
+        7  -0.445476D-04  0.106157D-03
+        8   0.175208D-06  0.145360D-05  0.568428D-05
+        9   0.665701D-05  0.290147D-06  0.209414D-05  0.448137D-04
+       10   0.820600D-04  0.126053D-04  0.264790D-05 -0.292634D-04  0.720384D-03
+       11  -0.160270D-03  0.272703D-04  0.676253D-05 -0.910955D-06 -0.300185D-04
+       12   0.575182D-03  0.485687D-03  0.906612D-04 -0.311883D-03  0.242762D-02
+       13   0.277849D-04 -0.626722D-05  0.596641D-05  0.181092D-04 -0.923313D-04
+       14  -0.517914D-04 -0.900522D-05  0.332169D-05 -0.127101D-05 -0.137394D-04
+       15   0.340429D-04  0.633493D-05 -0.811693D-06  0.485409D-05  0.843425D-05
+       16  -0.990747D-04  0.921488D-05 -0.152983D-04 -0.727734D-04  0.845008D-04
+       17  -0.747626D-04 -0.111126D-04 -0.133910D-04 -0.900801D-04  0.754493D-04
+       18   0.531069D-05  0.373037D-05 -0.129797D-05  0.111814D-05 -0.167750D-04
+       19  -0.793980D-05 -0.618578D-05  0.200605D-05  0.343986D-05  0.408780D-04
+       20  -0.410366D-05 -0.187585D-04 -0.741390D-05 -0.110255D-04 -0.681730D-04
+       21   0.259757D-04  0.116923D-04  0.493442D-05 -0.151251D-04 -0.135847D-03
+       22  -0.379562D-03 -0.296609D-03 -0.461252D-05  0.331270D-04 -0.149754D-04
+       23   0.675061D-05 -0.139907D-04 -0.862390D-05 -0.605702D-05 -0.834747D-04
+       24  -0.476121D-05  0.122309D-04  0.623094D-05 -0.183534D-04 -0.112792D-03
+       25  -0.333659D-03 -0.316513D-03 -0.208805D-06  0.187843D-04  0.202972D-04
+       26  -0.272846D-03 -0.326869D-03  0.320127D-05  0.366779D-05  0.527149D-04
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                    11            12            13            14            15
+              ________      ________      ________      ________      ________
+       11   0.826466D-03
+       12   0.304414D-03  0.610784D-01
+       13   0.370292D-04  0.469280D-03  0.711230D-03
+       14   0.526627D-04 -0.780687D-03  0.509566D-05  0.316924D-03
+       15   0.512442D-04  0.128512D-03  0.211013D-04  0.299598D-04  0.342914D-03
+       16   0.130569D-03  0.702644D-04 -0.890674D-04 -0.114106D-03 -0.131759D-03
+       17   0.132144D-03  0.609884D-03 -0.262480D-04 -0.154846D-03 -0.116196D-03
+       18  -0.139570D-04 -0.206404D-03  0.437073D-05  0.979282D-05  0.173568D-04
+       19  -0.153995D-05  0.774148D-04  0.443451D-06  0.154716D-04  0.507041D-05
+       20   0.129547D-04 -0.360821D-03  0.542922D-05 -0.554954D-04  0.237368D-04
+       21  -0.198995D-04 -0.483515D-03 -0.420558D-04  0.208218D-04 -0.444221D-04
+       22  -0.322198D-03 -0.248724D-02  0.107039D-03  0.178491D-03 -0.357538D-03
+       23   0.252750D-04 -0.388058D-03  0.200614D-04 -0.671904D-04  0.344129D-04
+       24  -0.226213D-04 -0.283972D-03 -0.495616D-04  0.293046D-04 -0.495343D-04
+       25  -0.270419D-03 -0.237172D-02 -0.111082D-04  0.186064D-03 -0.311199D-03
+       26  -0.236423D-03 -0.240151D-02 -0.173229D-03  0.185824D-03 -0.265213D-03
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                    16            17            18            19            20
+              ________      ________      ________      ________      ________
+       16   0.789374D-02
+       17   0.759033D-02  0.761024D-02
+       18  -0.616832D-04 -0.734848D-04  0.905923D-04
+       19  -0.717376D-04 -0.724259D-04  0.438274D-05  0.447741D-04
+       20   0.311216D-03  0.317426D-03 -0.291168D-04 -0.783053D-05  0.455843D-03
+       21  -0.400466D-03 -0.357303D-03  0.128504D-04 -0.181988D-04 -0.165943D-03
+       22   0.874910D-03  0.948187D-03  0.392169D-04  0.103937D-03 -0.559343D-03
+       23   0.336366D-03  0.340723D-03 -0.107033D-04 -0.710853D-05  0.426916D-03
+       24  -0.348524D-03 -0.309603D-03  0.109832D-04 -0.146900D-04 -0.163530D-03
+       25   0.102488D-02  0.112454D-02  0.248314D-04  0.618722D-04 -0.531378D-03
+       26   0.121172D-02  0.135686D-02  0.116428D-04  0.215208D-04 -0.510218D-03
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                    21            22            23            24            25
+              ________      ________      ________      ________      ________
+       21   0.471739D-03
+       22  -0.122428D-03  0.142012D-01
+       23  -0.164924D-03 -0.577550D-03  0.424260D-03
+       24   0.420864D-03 -0.486071D-05 -0.164910D-03  0.396203D-03
+       25  -0.345953D-04  0.137061D-01 -0.552332D-03  0.792478D-04  0.135090D-01
+       26   0.583953D-04  0.131300D-01 -0.522448D-03  0.161387D-03  0.132347D-01
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                    26
+              ________
+       26   0.133147D-01
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                     1             2             3             4             5
+              ________      ________      ________      ________      ________
+        1       1.000
+        2      -0.088         1.000
+        3      -0.017        -0.047         1.000
+        4       0.171        -0.131        -0.188         1.000
+        5      -0.202         0.154         0.099        -0.162         1.000
+        6      -0.076         0.131         0.121        -0.023         0.165
+        7       0.021        -0.089         0.002         0.086        -0.240
+        8       0.170        -0.068        -0.054         0.190        -0.179
+        9      -0.014        -0.103         0.072         0.105        -0.142
+       10       0.077        -0.029        -0.012        -0.212         0.023
+       11      -0.070        -0.160        -0.004         0.160         0.094
+       12       0.084        -0.152         0.138         0.039         0.032
+       13      -0.027         0.205         0.073         0.023        -0.199
+       14       0.083         0.124        -0.144         0.249        -0.160
+       15       0.176        -0.081         0.106         0.112        -0.112
+       16      -0.120        -0.097         0.076         0.029        -0.165
+       17      -0.097        -0.102         0.079         0.032        -0.151
+       18      -0.095         0.003        -0.074         0.101        -0.061
+       19       0.067        -0.006         0.005        -0.018        -0.005
+       20       0.025         0.022         0.248        -0.045         0.170
+       21      -0.058         0.120        -0.069         0.020         0.144
+       22       0.046         0.069        -0.104        -0.115        -0.028
+       23       0.004         0.027         0.232        -0.029         0.093
+       24      -0.054         0.099        -0.114         0.052         0.135
+       25       0.066         0.073        -0.115        -0.116        -0.025
+       26       0.088         0.073        -0.120        -0.115        -0.022
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                     6             7             8             9            10
+              ________      ________      ________      ________      ________
+        6       1.000
+        7      -0.197         1.000
+        8       0.003         0.059         1.000
+        9       0.045         0.004         0.131         1.000
+       10       0.139         0.046         0.041        -0.163         1.000
+       11      -0.254         0.092         0.099        -0.005        -0.039
+       12       0.106         0.191         0.154        -0.189         0.366
+       13       0.047        -0.023         0.094         0.101        -0.129
+       14      -0.133        -0.049         0.078        -0.011        -0.029
+       15       0.084         0.033        -0.018         0.039         0.017
+       16      -0.051         0.010        -0.072        -0.122         0.035
+       17      -0.039        -0.012        -0.064        -0.154         0.032
+       18       0.025         0.038        -0.057         0.018        -0.066
+       19      -0.054        -0.090         0.126         0.077         0.228
+       20      -0.009        -0.085        -0.146        -0.077        -0.119
+       21       0.054         0.052         0.095        -0.104        -0.233
+       22      -0.145        -0.242        -0.016         0.042        -0.005
+       23       0.015        -0.066        -0.176        -0.044        -0.151
+       24      -0.011         0.060         0.131        -0.138        -0.211
+       25      -0.131        -0.264        -0.001         0.024         0.007
+       26      -0.108        -0.275         0.012         0.005         0.017
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                    11            12            13            14            15
+              ________      ________      ________      ________      ________
+       11       1.000
+       12       0.043         1.000
+       13       0.048         0.071         1.000
+       14       0.103        -0.177         0.011         1.000
+       15       0.096         0.028         0.043         0.091         1.000
+       16       0.051         0.003        -0.038        -0.072        -0.080
+       17       0.053         0.028        -0.011        -0.100        -0.072
+       18      -0.051        -0.088         0.017         0.058         0.098
+       19      -0.008         0.047         0.002         0.130         0.041
+       20       0.021        -0.068         0.010        -0.146         0.060
+       21      -0.032        -0.090        -0.073         0.054        -0.110
+       22      -0.094        -0.084         0.034         0.084        -0.162
+       23       0.043        -0.076         0.037        -0.183         0.090
+       24      -0.040        -0.058        -0.093         0.083        -0.134
+       25      -0.081        -0.083        -0.004         0.090        -0.145
+       26      -0.071        -0.084        -0.056         0.090        -0.124
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                    16            17            18            19            20
+              ________      ________      ________      ________      ________
+       16       1.000
+       17       0.979         1.000
+       18      -0.073        -0.089         1.000
+       19      -0.121        -0.124         0.069         1.000
+       20       0.164         0.170        -0.143        -0.055         1.000
+       21      -0.208        -0.189         0.062        -0.125        -0.358
+       22       0.083         0.091         0.035         0.130        -0.220
+       23       0.184         0.190        -0.055        -0.052         0.971
+       24      -0.197        -0.178         0.058        -0.110        -0.385
+       25       0.099         0.111         0.022         0.080        -0.214
+       26       0.118         0.135         0.011         0.028        -0.207
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                    21            22            23            24            25
+              ________      ________      ________      ________      ________
+       21       1.000
+       22      -0.047         1.000
+       23      -0.369        -0.235         1.000
+       24       0.973        -0.002        -0.402         1.000
+       25      -0.014         0.990        -0.231         0.034         1.000
+       26       0.023         0.955        -0.220         0.070         0.987
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                    26
+              ________
+       26       1.000
+
+
+     Beginning Time:  21:40:35
+        Ending Time:  21:40:37
+       Elapsed Time:  00:00:02
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2024 Muthen & Muthen

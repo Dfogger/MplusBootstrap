@@ -32,7 +32,6 @@ simple_modmed <- function(Model, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
                           output='Untitled', rep=20000, conf=95) {
   # Multilevel moderated mediation_all Level 1 variables (fixed-fixed)
   w = toupper(w)
-  xw = toupper(xw)
   m = toupper(m)
   dv = toupper(dv)
 
@@ -42,17 +41,12 @@ simple_modmed <- function(Model, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
   )  #the effect of m on y
   b = b$est
 
-  wsd = Model$parameters$unstandardized %>% filter(
-    paramHeader == "Variances",
-    param == w
-  ) #sd of the moderator
-  wsd = sqrt(wsd$est)
-
   b_loc = Model$tech1$parameterSpecification$WITHIN$beta[dv, m]
   b2 =  Model$tech3$paramCov[b_loc, b_loc] #the variance of coefficient b
 
   # Moderator is at level one
   if (level_one_mod) {
+    xw = toupper(xw)
     c = Model$parameters$unstandardized %>% filter(
       paramHeader == paste0(m, ".ON"),
       param == xw
@@ -61,6 +55,13 @@ simple_modmed <- function(Model, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
 
     c_loc = Model$tech1$parameterSpecification$WITHIN$beta[m, xw]
     c2 = Model$tech3$paramCov[c_loc, c_loc]  #the variance of coefficient c
+
+    wsd = Model$parameters$unstandardized %>% filter(
+      paramHeader == "Variances",
+      param == w,
+      BetweenWithin == 'Within'
+    ) #sd of the moderator
+    wsd = sqrt(wsd$est)
 
     # Mod-Med Index
     # simple_version(xw, m, dv, multilevel=TRUE, output=paste0(output, 'modmed_index'))
@@ -75,6 +76,13 @@ simple_modmed <- function(Model, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL,
 
     c_loc = Model$tech1$parameterSpecification$BETWEEN$beta[first_path, w]
     c2 = Model$tech3$paramCov[c_loc, c_loc]  #the variance of coefficient c
+
+    wsd = Model$parameters$unstandardized %>% filter(
+      paramHeader == "Variances",
+      param == w,
+      BetweenWithin == 'Between'
+    ) #sd of the moderator
+    wsd = sqrt(wsd$est)
   }
 
 

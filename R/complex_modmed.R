@@ -56,7 +56,7 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
       param == second_path,
       paramHeader == paste0(first_path, '.WITH')
     )
-  d <- covajbj$est
+  d <- d$est
 
   wsd = Model$parameters$unstandardized %>% filter(
     paramHeader == "Variances",
@@ -77,7 +77,7 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
   c_loc = Model$tech1$parameterSpecification$BETWEEN$beta[first_path, w]
   varc = Model$tech3$paramCov[c_loc, c_loc]  #the variance of coefficient c
 
-  var_tau_loc <- if (is.na(Model$tech1$parameterSpecification$BETWEEN$psi[second_path, first_path])) {
+  var_tau_loc <- if (!is.na(Model$tech1$parameterSpecification$BETWEEN$psi[second_path, first_path])) {
     Model$tech1$parameterSpecification$BETWEEN$psi[second_path, first_path]
   } else {
     Model$tech1$parameterSpecification$BETWEEN$psi[first_path, second_path]
@@ -99,7 +99,7 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
   LL4=format(LL,digits=4)
   UL4=format(UL,digits=4)
   png(paste0(output, '_high.png'), width = 800, height = 600)
-  hist(abb,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
+  hist(ab,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
        main='Distribution of Indirect Effect')
   dev.off()
 
@@ -118,7 +118,7 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
   LL4=format(LL,digits=4)
   UL4=format(UL,digits=4)
   png(paste0(output, '_low.png'), width = 800, height = 600)
-  hist(abb,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
+  hist(ab,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
        main='Distribution of Indirect Effect')
   dev.off()
 
@@ -140,7 +140,7 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
   LL4=format(LL,digits=5)
   UL4=format(UL,digits=5)
   png(paste0(output, '_difference.png'), width = 800, height = 600)
-  hist(abb,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
+  hist(dev,breaks='FD',col='skyblue',xlab=paste(conf,'% Confidence Interval ','LL',LL4,'  UL',UL4),
        main='Distribution of Indirect Effect')
   dev.off()
 }
