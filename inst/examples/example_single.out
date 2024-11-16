@@ -1,0 +1,601 @@
+Mplus VERSION 8.8 (Mac)
+MUTHEN & MUTHEN
+09/06/2023   9:35 AM
+
+INPUT INSTRUCTIONS
+
+  Title:
+  These data are from the General Social Survey 2021
+  https://gss.norc.org/get-the-data/ ;
+
+  Data:
+  File is gss2021.csv;
+
+  Variable:
+  Names are
+  marital  ! Marital status, 1=married, 2=widowed, 3=divorced, 4=separated, 5=never married
+  age      ! Age of respondent
+  educ     ! Highest year of school completed, 0=none to 20=8 years of college
+  income   ! Total family income in bands, 0=under $1,000, 26=over $170k, 'income16' in GSS
+  polviews ! Think of self as liberal or conservative, 1=extremely liberal, 7=extremely cons
+  eqwlth   ! Should govt reduce income differences, 1=no it should not, 7=yes it should
+  tax      ! Respondent's federal income tax, 1=too low, 2=about right, 3=too high
+  happy    ! General happiness, 1=not too happy, 2=pretty happy, 3=very happy
+  satfin   ! Satisfaction with financial situation, 1=not sat, 2=more or less sat, 3=pretty
+  pain     ! Respondent's average pain in the last 7 days, 0=no pain, 10=the worst imaginabl
+  mditate  ! How often do you meditate?, 1=never, 7=at least once a day, 'mditate1' in GSS
+  ;
+  Usevariables are age educ income happy pain;
+  missing are all (-999);
+
+  Define:
+  Age=Age/10;
+
+  Analysis:
+  Estimator = ML;
+  !Bootstrap = 5000;
+  !Processors = 2;
+
+  Model:
+  Income  on Age    (a1);
+  Educ 	   on Age    (a2);
+  Happy   on Income (b1)
+  	    	 Educ   (b2);
+  Pain 	   on Income (b3)
+    	   	 Educ   (b4);
+  Happy Pain on Age;
+
+  Model Constraint:
+  New (AIH AIP AEH AEP);
+  AIH = a1*b1;  ! Age->Income->Happy
+  AIP = a1*b3;  ! Age->Income->Pain
+  AEH = a2*b2; ! Age->Educ->Happy
+  AEP = a2*b4; ! Age->Educ->Pain
+
+  Output:
+  sampstat tech1;
+  tech3; !only avaiable when bootstrap is turned off;
+  !present the covariance/variance matrix for all parameters
+  !cinterval(bcbootstrap);
+
+
+
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  polviews ! Think of self as liberal or conservative, 1=extremely liberal, 7=extremely conse
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  satfin   ! Satisfaction with financial situation, 1=not sat, 2=more or less sat, 3=pretty s
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  pain     ! Respondent's average pain in the last 7 days, 0=no pain, 10=the worst imaginable
+*** WARNING
+  Data set contains cases with missing on x-variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on x-variables:  333
+   4 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+These data are from the General Social Survey 2021
+https://gss.norc.org/get-the-data/ ;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3699
+
+Number of dependent variables                                    4
+Number of independent variables                                  1
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   EDUC        INCOME      HAPPY       PAIN
+
+Observed independent variables
+   AGE
+
+
+Estimator                                                       ML
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  gss2021.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            12
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           0.996
+ INCOME         0.899         0.902
+ HAPPY          0.991         0.898         0.996
+ PAIN           0.922         0.841         0.921         0.924
+ AGE            0.996         0.902         0.996         0.924         1.000
+
+
+SAMPLE STATISTICS
+
+
+     ESTIMATED SAMPLE STATISTICS
+
+
+           Means
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+               14.771        18.391         1.963         2.730         5.216
+
+
+           Covariances
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           7.838
+ INCOME         6.678        35.241
+ HAPPY          0.181         0.664         0.425
+ PAIN          -1.376        -4.365        -0.287         6.184
+ AGE            0.076         0.621         0.044         0.362         2.969
+
+
+           Correlations
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           1.000
+ INCOME         0.402         1.000
+ HAPPY          0.099         0.172         1.000
+ PAIN          -0.198        -0.296        -0.177         1.000
+ AGE            0.016         0.061         0.039         0.084         1.000
+
+
+     MAXIMUM LOG-LIKELIHOOD VALUE FOR THE UNRESTRICTED (H1) MODEL IS -38002.488
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     EDUC                 14.776      -0.465       0.000    0.19%      12.000     14.000     15.000
+            3683.000       7.826       1.481      20.000    5.54%      16.000     17.000
+     INCOME               18.496      -1.066       1.000    1.86%      14.000     19.000     20.000
+            3336.000      35.000       0.834      26.000   10.52%      21.000     23.000
+     HAPPY                 1.963       0.037       1.000   23.16%       1.000      2.000      2.000
+            3683.000       0.425      -0.650       3.000   19.47%       2.000      2.000
+     PAIN                  2.720       0.812       0.000   22.61%       0.000      2.000      2.000
+            3419.000       6.183      -0.229      10.000    0.61%       3.000      5.000
+     AGE                   5.216       0.018       1.800    0.11%       3.500      4.600      5.300
+            3699.000       2.969      -1.018       8.900    0.70%       5.900      6.900
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       17
+
+Loglikelihood
+
+          H0 Value                      -31023.511
+          H1 Value                      -30741.115
+
+Information Criteria
+
+          Akaike (AIC)                   62081.022
+          Bayesian (BIC)                 62186.691
+          Sample-Size Adjusted BIC       62132.673
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                            564.792
+          Degrees of Freedom                     1
+          P-Value                           0.0000
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.390
+          90 Percent C.I.                    0.364  0.418
+          Probability RMSEA <= .05           0.000
+
+CFI/TLI
+
+          CFI                                0.486
+          TLI                                0.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           1106.012
+          Degrees of Freedom                    10
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.099
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ INCOME   ON
+    AGE                0.192      0.060      3.198      0.001
+
+ EDUC     ON
+    AGE                0.023      0.027      0.856      0.392
+
+ HAPPY    ON
+    INCOME             0.016      0.002      8.141      0.000
+    EDUC               0.011      0.004      2.650      0.008
+    AGE                0.011      0.006      1.851      0.064
+
+ PAIN     ON
+    INCOME            -0.110      0.008    -14.073      0.000
+    EDUC              -0.094      0.016     -5.971      0.000
+    AGE                0.146      0.023      6.215      0.000
+
+ PAIN     WITH
+    HAPPY             -0.206      0.026     -7.814      0.000
+
+ Intercepts
+    EDUC              14.656      0.147     99.625      0.000
+    INCOME            17.477      0.330     52.950      0.000
+    HAPPY              1.439      0.067     21.628      0.000
+    PAIN               5.383      0.256     21.029      0.000
+
+ Residual Variances
+    EDUC               7.824      0.182     42.912      0.000
+    INCOME            34.924      0.856     40.818      0.000
+    HAPPY              0.412      0.010     42.807      0.000
+    PAIN               5.530      0.135     41.016      0.000
+
+New/Additional Parameters
+    AIH                0.003      0.001      2.981      0.003
+    AIP               -0.021      0.007     -3.119      0.002
+    AEH                0.000      0.000      0.815      0.415
+    AEP               -0.002      0.003     -0.847      0.397
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.179E-06
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION
+
+
+           NU
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+                  0             0             0             0             0
+
+
+           LAMBDA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC               0             0             0             0             0
+ INCOME             0             0             0             0             0
+ HAPPY              0             0             0             0             0
+ PAIN               0             0             0             0             0
+ AGE                0             0             0             0             0
+
+
+           THETA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC               0
+ INCOME             0             0
+ HAPPY              0             0             0
+ PAIN               0             0             0             0
+ AGE                0             0             0             0             0
+
+
+           ALPHA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+                  1             2             3             4             0
+
+
+           BETA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC               0             0             0             0             5
+ INCOME             0             0             0             0             6
+ HAPPY              7             8             0             0             9
+ PAIN              10            11             0             0            12
+ AGE                0             0             0             0             0
+
+
+           PSI
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC              13
+ INCOME             0            14
+ HAPPY              0             0            15
+ PAIN               0             0            16            17
+ AGE                0             0             0             0             0
+
+
+     PARAMETER SPECIFICATION FOR THE ADDITIONAL PARAMETERS
+
+
+           New/Additional Parameters
+              AIH           AIP           AEH           AEP
+              ________      ________      ________      ________
+                   18            19            20            21
+
+
+     STARTING VALUES
+
+
+           NU
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           1.000         0.000         0.000         0.000         0.000
+ INCOME         0.000         1.000         0.000         0.000         0.000
+ HAPPY          0.000         0.000         1.000         0.000         0.000
+ PAIN           0.000         0.000         0.000         1.000         0.000
+ AGE            0.000         0.000         0.000         0.000         1.000
+
+
+           THETA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           0.000
+ INCOME         0.000         0.000
+ HAPPY          0.000         0.000         0.000
+ PAIN           0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+               14.776        18.496         1.963         2.720         5.216
+
+
+           BETA
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           0.000         0.000         0.000         0.000         0.000
+ INCOME         0.000         0.000         0.000         0.000         0.000
+ HAPPY          0.000         0.000         0.000         0.000         0.000
+ PAIN           0.000         0.000         0.000         0.000         0.000
+ AGE            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              EDUC          INCOME        HAPPY         PAIN          AGE
+              ________      ________      ________      ________      ________
+ EDUC           3.913
+ INCOME         0.000        17.500
+ HAPPY          0.000         0.000         0.212
+ PAIN           0.000         0.000         0.000         3.091
+ AGE            0.000         0.000         0.000         0.000         2.969
+
+
+     STARTING VALUES FOR THE ADDITIONAL PARAMETERS
+
+
+           New/Additional Parameters
+              AIH           AIP           AEH           AEP
+              ________      ________      ________      ________
+                0.500         0.500         0.500         0.500
+
+
+TECHNICAL 3 OUTPUT
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                  1             2             3             4             5
+              ________      ________      ________      ________      ________
+      1     0.216424D-01
+      2    -0.547954D-06  0.108944D+00
+      3    -0.141257D-04 -0.275602D-03  0.442469D-02
+      4    -0.408728D-05  0.156589D-02 -0.224415D-02  0.655223D-01
+      5    -0.373833D-02  0.592943D-07  0.234885D-05 -0.566477D-06  0.716009D-03
+      6     0.797476D-07 -0.188189D-01  0.459886D-04 -0.247828D-03 -0.111877D-07
+      7     0.984528D-06  0.428241D-05 -0.192854D-03  0.996792D-04 -0.167889D-06
+      8    -0.104935D-06 -0.643347D-07 -0.261908D-04  0.109485D-04  0.200731D-07
+      9     0.234793D-06  0.367282D-04 -0.187391D-03  0.975847D-04 -0.386978D-07
+     10     0.163156D-05 -0.261330D-04  0.982827D-04 -0.284774D-02 -0.129625D-06
+     11    -0.720756D-06  0.718567D-05  0.121311D-04 -0.371152D-03  0.778919D-07
+     12    -0.100173D-05 -0.227407D-03  0.976451D-04 -0.281281D-02  0.163425D-06
+     13     0.239015D-07  0.506760D-06  0.270765D-07  0.170719D-04 -0.212316D-06
+     14     0.205439D-05 -0.981304D-04  0.356519D-04 -0.190534D-03 -0.262202D-06
+     15    -0.145200D-06 -0.732020D-06  0.287075D-05  0.558334D-06  0.241095D-07
+     16    -0.106267D-06 -0.328056D-05 -0.862840D-05  0.313319D-04  0.269444D-08
+     17     0.158046D-05  0.323667D-04  0.210388D-05 -0.265199D-03 -0.130632D-06
+     18    -0.188070D-07 -0.309971D-03 -0.426441D-05 -0.198259D-05  0.366457D-08
+     19    -0.146934D-06  0.206270D-02 -0.271128D-05 -0.440197D-04  0.161606D-07
+     20    -0.406279D-04  0.987222D-07 -0.439127D-05  0.227673D-05  0.778201D-05
+     21     0.351977D-03 -0.604090D-06  0.202978D-05 -0.651667D-04 -0.674106D-04
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                  6             7             8             9            10
+              ________      ________      ________      ________      ________
+      6     0.359375D-02
+      7    -0.571317D-07  0.168354D-04
+      8    -0.477130D-06 -0.308973D-05  0.409301D-05
+      9    -0.673803D-05  0.190934D-06 -0.710134D-06  0.378877D-04
+     10     0.176571D-05 -0.865102D-05  0.165454D-05 -0.148323D-06  0.248619D-03
+     11    -0.273735D-06  0.157374D-05 -0.202073D-05  0.356452D-06 -0.473518D-04
+     12     0.423807D-04 -0.998664D-07  0.312132D-06 -0.195187D-04  0.658520D-05
+     13    -0.590776D-07 -0.538041D-08  0.247530D-08  0.301005D-08 -0.155023D-05
+     14    -0.354020D-04 -0.165465D-05 -0.564173D-06  0.747895D-06  0.285249D-04
+     15     0.572726D-06  0.332597D-06 -0.442322D-06  0.664336D-07 -0.265222D-06
+     16    -0.145443D-05 -0.112648D-05  0.143630D-05 -0.205233D-06  0.644848D-05
+     17    -0.848239D-06  0.104615D-05 -0.102957D-05  0.189080D-06 -0.347698D-04
+     18     0.590998D-04 -0.593371D-06  0.776943D-06 -0.247142D-06  0.346327D-06
+     19    -0.393692D-03  0.308009D-06 -0.335196D-06  0.806392D-06 -0.927271D-05
+     20    -0.143011D-08  0.383747D-06 -0.705440D-07  0.395204D-08 -0.199539D-06
+     21     0.414922D-07 -0.182324D-06  0.360033D-07  0.246176D-09  0.570617D-05
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                 11            12            13            14            15
+              ________      ________      ________      ________      ________
+     11     0.605763D-04
+     12    -0.938242D-05  0.551630D-03
+     13     0.317885D-06 -0.210887D-07  0.332456D-01
+     14    -0.142867D-04 -0.397311D-06 -0.851139D-06  0.732033D+00
+     15     0.194039D-06  0.126145D-07 -0.155732D-07 -0.187225D-04  0.925351D-04
+     16    -0.553234D-05 -0.348240D-05  0.930521D-07  0.124030D-03 -0.475530D-04
+     17     0.425646D-04 -0.241278D-05 -0.227685D-05 -0.867984D-03  0.241769D-04
+     18    -0.391967D-06  0.757883D-06 -0.498424D-09 -0.691266D-06 -0.753785D-07
+     19     0.116450D-04 -0.644114D-05  0.674228D-07  0.113836D-05 -0.255276D-07
+     20     0.368894D-07 -0.510102D-09 -0.243194D-08 -0.407467D-07  0.787945D-08
+     21    -0.109180D-05  0.135431D-06 -0.155158D-07  0.677974D-06 -0.834397D-08
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                 16            17            18            19            20
+              ________      ________      ________      ________      ________
+     16     0.694643D-03
+     17    -0.700442D-03  0.181813D-01
+     18     0.251443D-06 -0.211382D-06  0.112238D-05
+     19    -0.901470D-06  0.825431D-05 -0.654860D-05  0.453555D-04
+     20    -0.257698D-07  0.225388D-07 -0.135498D-07  0.722988D-08  0.934099D-07
+     21     0.147432D-06 -0.784015D-06  0.758673D-08 -0.213889D-06 -0.737195D-06
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                 21
+              ________
+     21     0.647695D-05
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                  1             2             3             4             5
+              ________      ________      ________      ________      ________
+      1         1.000
+      2         0.000         1.000
+      3        -0.001        -0.013         1.000
+      4         0.000         0.019        -0.132         1.000
+      5        -0.950         0.000         0.001         0.000         1.000
+      6         0.000        -0.951         0.012        -0.016         0.000
+      7         0.002         0.003        -0.707         0.095        -0.002
+      8         0.000         0.000        -0.195         0.021         0.000
+      9         0.000         0.018        -0.458         0.062         0.000
+     10         0.001        -0.005         0.094        -0.706         0.000
+     11        -0.001         0.003         0.023        -0.186         0.000
+     12         0.000        -0.029         0.063        -0.468         0.000
+     13         0.000         0.000         0.000         0.000         0.000
+     14         0.000         0.000         0.001        -0.001         0.000
+     15         0.000         0.000         0.004         0.000         0.000
+     16         0.000         0.000        -0.005         0.005         0.000
+     17         0.000         0.001         0.000        -0.008         0.000
+     18         0.000        -0.886        -0.061        -0.007         0.000
+     19         0.000         0.928        -0.006        -0.026         0.000
+     20        -0.904         0.001        -0.216         0.029         0.952
+     21         0.940        -0.001         0.012        -0.100        -0.990
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                  6             7             8             9            10
+              ________      ________      ________      ________      ________
+      6         1.000
+      7         0.000         1.000
+      8        -0.004        -0.372         1.000
+      9        -0.018         0.008        -0.057         1.000
+     10         0.002        -0.134         0.052        -0.002         1.000
+     11        -0.001         0.049        -0.128         0.007        -0.386
+     12         0.030        -0.001         0.007        -0.135         0.018
+     13         0.000         0.000         0.000         0.000        -0.001
+     14        -0.001         0.000         0.000         0.000         0.002
+     15         0.001         0.008        -0.023         0.001        -0.002
+     16        -0.001        -0.010         0.027        -0.001         0.016
+     17         0.000         0.002        -0.004         0.000        -0.016
+     18         0.931        -0.137         0.362        -0.038         0.021
+     19        -0.975         0.011        -0.025         0.019        -0.087
+     20         0.000         0.306        -0.114         0.002        -0.041
+     21         0.000        -0.017         0.007         0.000         0.142
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                 11            12            13            14            15
+              ________      ________      ________      ________      ________
+     11         1.000
+     12        -0.051         1.000
+     13         0.000         0.000         1.000
+     14        -0.002         0.000         0.000         1.000
+     15         0.003         0.000         0.000        -0.002         1.000
+     16        -0.027        -0.006         0.000         0.006        -0.188
+     17         0.041        -0.001         0.000        -0.008         0.019
+     18        -0.048         0.030         0.000        -0.001        -0.007
+     19         0.222        -0.041         0.000         0.000         0.000
+     20         0.016         0.000         0.000         0.000         0.003
+     21        -0.055         0.002         0.000         0.000         0.000
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                 16            17            18            19            20
+              ________      ________      ________      ________      ________
+     16         1.000
+     17        -0.197         1.000
+     18         0.009        -0.001         1.000
+     19        -0.005         0.009        -0.918         1.000
+     20        -0.003         0.001        -0.042         0.004         1.000
+     21         0.002        -0.002         0.003        -0.012        -0.948
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                 21
+              ________
+     21         1.000
+
+
+     Beginning Time:  09:35:29
+        Ending Time:  09:35:30
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen

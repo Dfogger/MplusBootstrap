@@ -1,0 +1,525 @@
+Mplus VERSION 8.10 (Mac)
+MUTHEN & MUTHEN
+10/23/2023   2:53 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:	1-1-1 mediation with latent centering
+
+  DATA:	FILE = 11.1 example.csv;
+
+  VARIABLE:	
+      NAMES = group x w m y xm wm mm cx cw cxw;
+      USEVARIABLE = x m y;
+      WITHIN = ;
+      BETWEEN = ;
+      CLUSTER = group;
+      	
+  ANALYSIS:	
+       TYPE = TWOLEVEL;
+
+  MODEL:
+  	%WITHIN%	
+  	m y ON x;
+  	y ON m;
+  	
+  	%BETWEEN%
+  	x WITH m y;
+  	m WITH y;
+  	
+  OUTPUT:
+    	tech1 tech3;!Both are needed for CI bootstrap
+  	
+      	
+      	
+      	
+      	
+
+
+
+*** WARNING in MODEL command
+  In the MODEL command, the following variable is a y-variable on the BETWEEN
+  level and an x-variable on the WITHIN level.  This variable will be treated
+  as a y-variable on both levels:  X
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+1-1-1 mediation with latent centering
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3200
+
+Number of dependent variables                                    3
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   X           M           Y
+
+Variables with special functions
+
+  Cluster variable      GROUP
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                   100
+Convergence criterion                                    0.100D-05
+Maximum number of EM iterations                                500
+Convergence criteria for the EM algorithm
+  Loglikelihood change                                   0.100D-02
+  Relative loglikelihood change                          0.100D-05
+  Derivative                                             0.100D-03
+Minimum variance                                         0.100D-03
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+
+Input data file(s)
+  11.1 example.csv
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of clusters                        100
+
+     Average cluster size       32.000
+
+     Estimated Intraclass Correlations for the Y Variables
+
+                Intraclass              Intraclass              Intraclass
+     Variable  Correlation   Variable  Correlation   Variable  Correlation
+
+     X            0.001      M            0.180      Y            0.130
+
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     X                     2.990       0.024      -0.883    0.03%       2.157      2.732      2.979
+            3200.000       1.007       0.071       6.695    0.03%       3.229      3.845
+     M                     0.223      -0.287     -16.119    0.03%      -1.203     -0.245      0.229
+            3200.000       3.642       2.909       7.753    0.03%       0.676      1.709
+     Y                     0.255      -0.234     -17.443    0.03%      -1.405     -0.255      0.278
+            3200.000       4.579       2.094       8.100    0.03%       0.769      1.906
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       15
+
+Loglikelihood
+
+          H0 Value                      -15410.759
+          H0 Scaling Correction Factor      2.0029
+            for MLR
+          H1 Value                      -15410.590
+          H1 Scaling Correction Factor      2.0029
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   30851.518
+          Bayesian (BIC)                 30942.581
+          Sample-Size Adjusted BIC       30894.920
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.338*
+          Degrees of Freedom                     0
+          P-Value                           0.0000
+          Scaling Correction Factor         1.0000
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           4678.402
+          Degrees of Freedom                     6
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value for Within                   0.000
+          Value for Between                  0.070
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ M          ON
+    X                  0.104      0.082      1.264      0.206
+
+ Y          ON
+    X                 -0.001      0.020     -0.033      0.973
+    M                  1.007      0.009    111.489      0.000
+
+ Variances
+    X                  1.006      0.025     39.621      0.000
+
+ Residual Variances
+    M                  2.976      0.235     12.670      0.000
+    Y                  0.955      0.024     39.327      0.000
+
+Between Level
+
+ X        WITH
+    M                 -0.017      0.018     -0.915      0.360
+    Y                 -0.016      0.017     -0.925      0.355
+
+ M        WITH
+    Y                  0.624      0.108      5.780      0.000
+
+ Means
+    X                  2.990      0.018    170.793      0.000
+    M                  0.223      0.087      2.577      0.010
+    Y                  0.255      0.084      3.020      0.003
+
+ Variances
+    X                  0.002      0.005      0.325      0.745
+    M                  0.656      0.113      5.783      0.000
+    Y                  0.594      0.105      5.668      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.391E-04
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN
+
+
+           NU
+              X             M             Y
+              ________      ________      ________
+                    0             0             0
+
+
+           LAMBDA
+              X             M             Y
+              ________      ________      ________
+ X                  0             0             0
+ M                  0             0             0
+ Y                  0             0             0
+
+
+           THETA
+              X             M             Y
+              ________      ________      ________
+ X                  0
+ M                  0             0
+ Y                  0             0             0
+
+
+           ALPHA
+              X             M             Y
+              ________      ________      ________
+                    0             0             0
+
+
+           BETA
+              X             M             Y
+              ________      ________      ________
+ X                  0             0             0
+ M                  1             0             0
+ Y                  2             3             0
+
+
+           PSI
+              X             M             Y
+              ________      ________      ________
+ X                  4
+ M                  0             5
+ Y                  0             0             6
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN
+
+
+           NU
+              X             M             Y
+              ________      ________      ________
+                    0             0             0
+
+
+           LAMBDA
+              X             M             Y
+              ________      ________      ________
+ X                  0             0             0
+ M                  0             0             0
+ Y                  0             0             0
+
+
+           THETA
+              X             M             Y
+              ________      ________      ________
+ X                  0
+ M                  0             0
+ Y                  0             0             0
+
+
+           ALPHA
+              X             M             Y
+              ________      ________      ________
+                    7             8             9
+
+
+           BETA
+              X             M             Y
+              ________      ________      ________
+ X                  0             0             0
+ M                  0             0             0
+ Y                  0             0             0
+
+
+           PSI
+              X             M             Y
+              ________      ________      ________
+ X                 10
+ M                 11            12
+ Y                 13            14            15
+
+
+     STARTING VALUES FOR WITHIN
+
+
+           NU
+              X             M             Y
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              X             M             Y
+              ________      ________      ________
+ X              1.000         0.000         0.000
+ M              0.000         1.000         0.000
+ Y              0.000         0.000         1.000
+
+
+           THETA
+              X             M             Y
+              ________      ________      ________
+ X              0.000
+ M              0.000         0.000
+ Y              0.000         0.000         0.000
+
+
+           ALPHA
+              X             M             Y
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           BETA
+              X             M             Y
+              ________      ________      ________
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000
+ Y              0.000         0.000         0.000
+
+
+           PSI
+              X             M             Y
+              ________      ________      ________
+ X              0.504
+ M              0.000         1.821
+ Y              0.000         0.000         2.289
+
+
+     STARTING VALUES FOR BETWEEN
+
+
+           NU
+              X             M             Y
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           LAMBDA
+              X             M             Y
+              ________      ________      ________
+ X              1.000         0.000         0.000
+ M              0.000         1.000         0.000
+ Y              0.000         0.000         1.000
+
+
+           THETA
+              X             M             Y
+              ________      ________      ________
+ X              0.000
+ M              0.000         0.000
+ Y              0.000         0.000         0.000
+
+
+           ALPHA
+              X             M             Y
+              ________      ________      ________
+                2.990         0.223         0.255
+
+
+           BETA
+              X             M             Y
+              ________      ________      ________
+ X              0.000         0.000         0.000
+ M              0.000         0.000         0.000
+ Y              0.000         0.000         0.000
+
+
+           PSI
+              X             M             Y
+              ________      ________      ________
+ X              0.504
+ M              0.000         1.821
+ Y              0.000         0.000         2.289
+
+
+TECHNICAL 3 OUTPUT
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                     1             2             3             4             5
+              ________      ________      ________      ________      ________
+        1   0.677898D-02
+        2   0.119486D-03  0.389783D-03
+        3  -0.372315D-04 -0.476168D-04  0.816152D-04
+        4  -0.314976D-03 -0.122047D-03  0.271052D-04  0.644441D-03
+        5  -0.250479D-02  0.552081D-03  0.240378D-03  0.124512D-03  0.551581D-01
+        6   0.402708D-03  0.477491D-04  0.141171D-04 -0.859791D-04  0.496775D-03
+        7  -0.962915D-04  0.375588D-04 -0.920629D-05 -0.459983D-05  0.399626D-03
+        8  -0.851231D-03 -0.122076D-03 -0.981847D-05  0.281435D-03 -0.126962D-02
+        9  -0.865656D-03 -0.868096D-04 -0.297533D-04  0.296554D-03 -0.105458D-02
+       10  -0.546721D-04 -0.611080D-05 -0.250407D-05  0.110705D-06  0.119629D-03
+       11   0.202560D-03  0.213167D-04  0.115223D-04 -0.264588D-04 -0.671900D-03
+       12   0.548008D-03 -0.276683D-03 -0.230372D-03 -0.590078D-03 -0.225194D-02
+       13   0.170094D-03  0.125392D-04  0.112119D-04 -0.187447D-04 -0.548561D-03
+       14   0.539941D-03 -0.248846D-03 -0.253590D-03 -0.558722D-03 -0.203217D-02
+       15   0.493955D-03 -0.227952D-03 -0.265785D-03 -0.531402D-03 -0.196149D-02
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                     6             7             8             9            10
+              ________      ________      ________      ________      ________
+        6   0.590043D-03
+        7  -0.422962D-05  0.306564D-03
+        8  -0.196098D-03 -0.137629D-03  0.749021D-02
+        9  -0.139774D-03 -0.109696D-03  0.717046D-02  0.712575D-02
+       10   0.398589D-05  0.690820D-06 -0.643101D-04 -0.582684D-04  0.302435D-04
+       11   0.342353D-04 -0.448292D-04 -0.186328D-03 -0.151309D-03 -0.287900D-04
+       12   0.159042D-03 -0.195607D-03  0.748101D-03  0.901846D-03  0.104970D-03
+       13   0.244628D-04 -0.389721D-04 -0.138208D-03 -0.986755D-04 -0.247369D-04
+       14   0.998202D-04 -0.157799D-03  0.957825D-03  0.107734D-02  0.813957D-04
+       15   0.201284D-04 -0.112064D-03  0.112746D-02  0.123483D-02  0.599037D-04
+
+
+           ESTIMATED COVARIANCE MATRIX FOR PARAMETER ESTIMATES
+                    11            12            13            14            15
+              ________      ________      ________      ________      ________
+       11   0.339469D-03
+       12  -0.303068D-03  0.128606D-01
+       13   0.305412D-03 -0.249947D-03  0.287430D-03
+       14  -0.267312D-03  0.121082D-01 -0.224541D-03  0.116434D-01
+       15  -0.235770D-03  0.113631D-01 -0.200787D-03  0.111709D-01  0.109827D-01
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                     1             2             3             4             5
+              ________      ________      ________      ________      ________
+        1       1.000
+        2       0.074         1.000
+        3      -0.050        -0.267         1.000
+        4      -0.151        -0.244         0.118         1.000
+        5      -0.130         0.119         0.113         0.021         1.000
+        6       0.201         0.100         0.064        -0.139         0.087
+        7      -0.067         0.109        -0.058        -0.010         0.097
+        8      -0.119        -0.071        -0.013         0.128        -0.062
+        9      -0.125        -0.052        -0.039         0.138        -0.053
+       10      -0.121        -0.056        -0.050         0.001         0.093
+       11       0.134         0.059         0.069        -0.057        -0.155
+       12       0.059        -0.124        -0.225        -0.205        -0.085
+       13       0.122         0.037         0.073        -0.044        -0.138
+       14       0.061        -0.117        -0.260        -0.204        -0.080
+       15       0.057        -0.110        -0.281        -0.200        -0.080
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                     6             7             8             9            10
+              ________      ________      ________      ________      ________
+        6       1.000
+        7      -0.010         1.000
+        8      -0.093        -0.091         1.000
+        9      -0.068        -0.074         0.981         1.000
+       10       0.030         0.007        -0.135        -0.126         1.000
+       11       0.076        -0.139        -0.117        -0.097        -0.284
+       12       0.058        -0.099         0.076         0.094         0.168
+       13       0.059        -0.131        -0.094        -0.069        -0.265
+       14       0.038        -0.084         0.103         0.118         0.137
+       15       0.008        -0.061         0.124         0.140         0.104
+
+
+           ESTIMATED CORRELATION MATRIX FOR PARAMETER ESTIMATES
+                    11            12            13            14            15
+              ________      ________      ________      ________      ________
+       11       1.000
+       12      -0.145         1.000
+       13       0.978        -0.130         1.000
+       14      -0.134         0.989        -0.123         1.000
+       15      -0.122         0.956        -0.113         0.988         1.000
+
+
+     Beginning Time:  14:53:30
+        Ending Time:  14:53:31
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2023 Muthen & Muthen
