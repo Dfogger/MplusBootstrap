@@ -1,7 +1,7 @@
 # MplusBootstrap
 An R package to automate bootstrapping for various mediation and moderated mediation analysis scenarios.
 
-# Installation
+## Installation
 ```R
 install.packages('MplusBootstrap_0.1.0.tar.gz', type='source')
 ```
@@ -18,7 +18,7 @@ This function loads model results from Mplus output file. If these exists no out
 
 User must specify a filename or a path where the Mplus input or output file locates. 
 
-2. **MplusBootstrap(Model, type, first_path, second_path=NULL, multi_level, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL, first_stage_mod=NULL, level_one_mod=NULL, output='Untitled', rep=20000, conf=95) **
+2. **MplusBootstrap(Model, type, first_path, second_path=NULL, multi_level, iv=NULL, m=NULL, w=NULL, xw=NULL, dv=NULL, first_stage_mod=NULL, level_one_mod=NULL, output='Untitled', rep=20000, conf=95)**
 
 This function provides a set of Monte Carlo simulations to bootstrap the mediation or moderated mediation or mediated moderation effect from the Mplus resluts. The template of the monte carlo method in this function is from https://quantpsy.org/medmc/medmc.htm.
 
@@ -30,6 +30,8 @@ Please refer to [description](man/MplusBootstrap.Rd) for more details.
 ## Examples
 The example code and output file can be found in [tests/testthat](tests/testthat). 
 ```R
+  library(MplusBootstrap)
+  
   # Single Level Mediation
   model <- load_model(file_name = testthat::test_path('examples/example_single'))
   MplusBootstrap(Model=model, type="med", first_path="fixed", second_path="fixed",
