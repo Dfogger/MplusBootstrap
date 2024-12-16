@@ -8,6 +8,9 @@ install.packages('MplusBootstrap_0.1.0.tar.gz', type='source')
 
 ## Dependencies
 MplusAutomation, dplyr, tidyr, MASS
+```R
+install.packages(c("dplyr", "MplusAutomation", "tidyr", "MASS"))
+```
 
 ## Functions
 This package provides two main functions: 
@@ -23,7 +26,17 @@ User must specify a filename or a path where the Mplus input or output file loca
 This function provides a set of Monte Carlo simulations to bootstrap the mediation or moderated mediation or mediated moderation effect from the Mplus resluts. The template of the monte carlo method in this function is from https://quantpsy.org/medmc/medmc.htm.
 
 User must specify the model, model type ('med', 'mod-med' or 'med-mod'), first/second path ('fixed' or 'path name), multi_level (TRUE or FALSE), and nessacary variable names that will be used. The variable names are case-insensitive. 
-Some examples are given below. 
+Some examples are given below.
+
+1. mod-med (med)
+
+![Moderated Mediation](docs/mod-med.png)
+
+2. med-mod
+
+![Mediated Moderation](docs/med-mod.png)
+
+If **s1** (or **s2**) are fixed, first_path (or second_path) should be specified as 'fixed'. Instead, first_path (or second_path) should be kept the same as the path name in the MPlus syntax. 
 
 Please refer to [description](man/MplusBootstrap.Rd) for more details. 
 

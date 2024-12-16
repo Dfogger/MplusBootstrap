@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(MplusBootstrapping)
+library(MplusBootstrap)
 
-test_check("MplusBootstrapping")
+test_check("MplusBootstrap")
