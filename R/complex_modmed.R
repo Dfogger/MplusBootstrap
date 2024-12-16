@@ -51,12 +51,23 @@ complex_modmed <- function(Model, first_stage_mod=TRUE,
   c_loc = Model$tech1$parameterSpecification$BETWEEN$beta[first_path, w]
   c2 = Model$tech3$paramCov[c_loc, c_loc]  #the variance of coefficient c
 
-  d <- Model$parameters$unstandardized %>%
+  d_1 <- Model$parameters$unstandardized %>%
     filter(
       param == second_path,
       paramHeader == paste0(first_path, '.WITH')
     )
-  d <- d$est
+  d_2 <- Model$parameters$unstandardized %>%
+    filter(
+      param == first_path,
+      paramHeader == paste0(second_path, '.WITH')
+    )
+
+  d <- if (nrow(d_1) > 0) {
+    d_1$est
+  } else {
+    d_2$est
+  }
+
 
   wsd = Model$parameters$unstandardized %>% filter(
     paramHeader == "Variances",

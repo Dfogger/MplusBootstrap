@@ -37,12 +37,22 @@ complex_version <- function(Model, first_path=NULL, second_path=NULL,
       paramHeader == 'Means'
     )
   b <- b$est
-  covajbj <- Model$parameters$unstandardized %>%
+  covajbj_1 <- Model$parameters$unstandardized %>%
     filter(
       param == s_ym,
       paramHeader == paste0(s_mx, '.WITH')
     )
-  covajbj <- covajbj$est
+  covajbj_2 <- Model$parameters$unstandardized %>%
+    filter(
+      param == s_mx,
+      paramHeader == paste0(s_ym, '.WITH')
+    )
+
+  covajbj <-if (nrow(covajbj_1) > 0) {
+    covajbj_1$est
+  } else {
+    covajbj_2$est
+  }
 
   var_a_loc <- Model$tech1$parameterSpecification$BETWEEN$alpha[1, s_mx]
   var_b_loc <- Model$tech1$parameterSpecification$BETWEEN$alpha[1, s_ym]
